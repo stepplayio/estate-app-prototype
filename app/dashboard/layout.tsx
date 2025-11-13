@@ -30,7 +30,20 @@ export default function DashboardLayout({
     router.push('/login');
   };
 
-  const menuGroups = [
+  type MenuItem = {
+    name: string;
+    href: string;
+    icon: string;
+    access?: string[];
+    sub?: boolean;
+  };
+
+  type MenuGroup = {
+    label: string | null;
+    items: MenuItem[];
+  };
+
+  const menuGroups: MenuGroup[] = [
     {
       label: null,
       items: [
