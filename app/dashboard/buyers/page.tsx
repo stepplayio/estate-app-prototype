@@ -47,8 +47,9 @@ export default function BuyersPage() {
             <span className="text-sm font-medium text-gray-700 flex items-center">상태:</span>
             {[
               { value: 'all', label: '전체' },
-              { value: 'active', label: '활성' },
-              { value: 'inactive', label: '비활성' },
+              { value: 'potential', label: '잠재' },
+              { value: 'confirmed', label: '확정' },
+              { value: 'in_sales', label: '영업 중' },
             ].map((item) => (
               <button
                 key={item.value}
@@ -84,47 +85,79 @@ export default function BuyersPage() {
                   </div>
                   <span
                     className={`px-2 py-1 text-xs font-medium rounded ${
-                      buyer.status === 'active'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-gray-100 text-gray-800'
+                      buyer.status === 'potential'
+                        ? 'bg-gray-100 text-gray-800'
+                        : buyer.status === 'confirmed'
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-green-100 text-green-800'
                     }`}
                   >
-                    {buyer.status === 'active' ? '활성' : '비활성'}
+                    {buyer.status === 'potential'
+                      ? '잠재'
+                      : buyer.status === 'confirmed'
+                      ? '확정'
+                      : '영업 중'}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div>
-                    <span className="text-gray-500">예산:</span>{' '}
-                    <span className="font-medium text-gray-900">
-                      {(buyer.budget.min / 100000000).toFixed(1)}~
-                      {(buyer.budget.max / 100000000).toFixed(1)}억
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-gray-500">지역:</span>{' '}
-                    <span className="font-medium text-gray-900">
-                      {buyer.preferredLocation}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-gray-500">종류:</span>{' '}
-                    <span className="font-medium text-gray-900">
-                      {buyer.preferredType}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-gray-500">등록일:</span>{' '}
-                    <span className="font-medium text-gray-900">{buyer.createdAt}</span>
-                  </div>
-                </div>
+                {buyer.status === 'potential' ? (
+                  <>
+                    <div className="text-sm mb-2">
+                      <div className="mb-1">
+                        <span className="text-gray-500">관심 분야:</span>{' '}
+                        <span className="font-medium text-gray-900">
+                          {buyer.preferredLocation} / {buyer.preferredType}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500">메모:</span>{' '}
+                        <span className="text-gray-700 text-xs">{buyer.memo}</span>
+                      </div>
+                    </div>
+                    {selectedBuyer === buyer.id && (
+                      <div className="mt-3 pt-3 border-t">
+                        <button className="w-full px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 text-sm">
+                          조건 확정하기 (확정 매수자로 전환)
+                        </button>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="text-gray-500">예산:</span>{' '}
+                        <span className="font-medium text-gray-900">
+                          {(buyer.budget.min / 100000000).toFixed(1)}~
+                          {(buyer.budget.max / 100000000).toFixed(1)}억
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500">지역:</span>{' '}
+                        <span className="font-medium text-gray-900">
+                          {buyer.preferredLocation}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500">종류:</span>{' '}
+                        <span className="font-medium text-gray-900">
+                          {buyer.preferredType}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500">등록일:</span>{' '}
+                        <span className="font-medium text-gray-900">{buyer.createdAt}</span>
+                      </div>
+                    </div>
 
-                {selectedBuyer === buyer.id && (
-                  <div className="mt-3 pt-3 border-t">
-                    <button className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm">
-                      매칭 실행
-                    </button>
-                  </div>
+                    {selectedBuyer === buyer.id && (
+                      <div className="mt-3 pt-3 border-t">
+                        <button className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm">
+                          매칭 실행
+                        </button>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             ))}
@@ -203,14 +236,16 @@ export default function BuyersPage() {
           <p className="text-3xl font-bold text-gray-900">{buyers.length}</p>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-sm font-medium text-gray-500 mb-2">활성 매수자</h3>
-          <p className="text-3xl font-bold text-green-600">
-            {buyers.filter((b) => b.status === 'active').length}
+          <h3 className="text-sm font-medium text-gray-500 mb-2">잠재 매수자</h3>
+          <p className="text-3xl font-bold text-gray-600">
+            {buyers.filter((b) => b.status === 'potential').length}
           </p>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-sm font-medium text-gray-500 mb-2">총 매칭 건수</h3>
-          <p className="text-3xl font-bold text-blue-600">{matchingResults.length}</p>
+          <h3 className="text-sm font-medium text-gray-500 mb-2">확정 매수자</h3>
+          <p className="text-3xl font-bold text-blue-600">
+            {buyers.filter((b) => b.status === 'confirmed').length}
+          </p>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-sm font-medium text-gray-500 mb-2">평균 매칭 점수</h3>

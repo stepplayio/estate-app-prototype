@@ -91,6 +91,20 @@ export const properties = [
     realTransactionPrice: 17000000,
     createdAt: '2025-01-22',
   },
+  {
+    id: 7,
+    name: '종로구 인사동 ',
+    address: '서울시 종로구 인사동 678-90',
+    type: '근린상가',
+    area: 150,
+    price: 3500000000,
+    signalScore: 0,
+    status: 'pre-farming',
+    dataSource: 'manual',
+    publicLandPrice: 0,
+    realTransactionPrice: 0,
+    createdAt: '2025-01-26',
+  },
 ];
 
 export const buyers = [
@@ -102,7 +116,7 @@ export const buyers = [
     budget: { min: 1000000000, max: 2000000000 },
     preferredLocation: '강남구',
     preferredType: '상가',
-    status: 'active',
+    status: 'confirmed',
     createdAt: '2025-01-10',
   },
   {
@@ -113,7 +127,7 @@ export const buyers = [
     budget: { min: 500000000, max: 1000000000 },
     preferredLocation: '서초구',
     preferredType: '오피스텔',
-    status: 'active',
+    status: 'confirmed',
     createdAt: '2025-01-15',
   },
   {
@@ -124,8 +138,32 @@ export const buyers = [
     budget: { min: 3000000000, max: 5000000000 },
     preferredLocation: '송파구',
     preferredType: '건물',
-    status: 'active',
+    status: 'confirmed',
     createdAt: '2025-01-08',
+  },
+  {
+    id: 4,
+    name: '최잠재',
+    phone: '010-4567-8901',
+    email: 'choi@example.com',
+    budget: { min: 0, max: 0 },
+    preferredLocation: '미정',
+    preferredType: '미정',
+    status: 'potential',
+    memo: '부동산 투자 관심 있음. 예산 미확정',
+    createdAt: '2025-01-20',
+  },
+  {
+    id: 5,
+    name: '정관심',
+    phone: '010-5678-9012',
+    email: 'jung@example.com',
+    budget: { min: 0, max: 0 },
+    preferredLocation: '강남/서초',
+    preferredType: '상가 또는 오피스텔',
+    status: 'potential',
+    memo: '상권 분석 중. 조건 협의 필요',
+    createdAt: '2025-01-22',
   },
 ];
 
@@ -141,6 +179,7 @@ export const activities = [
     date: '2025-01-20',
     status: 'completed',
     photos: 2,
+    voiceRecording: false,
   },
   {
     id: 2,
@@ -153,6 +192,7 @@ export const activities = [
     date: '2025-01-22',
     status: 'completed',
     photos: 0,
+    voiceRecording: true,
   },
   {
     id: 3,
@@ -165,6 +205,7 @@ export const activities = [
     date: '2025-01-25',
     status: 'scheduled',
     photos: 0,
+    voiceRecording: false,
   },
   {
     id: 4,
@@ -177,6 +218,7 @@ export const activities = [
     date: '2025-01-28',
     status: 'scheduled',
     photos: 0,
+    voiceRecording: false,
   },
   {
     id: 5,
@@ -189,6 +231,7 @@ export const activities = [
     date: '2025-01-18',
     status: 'cancelled',
     photos: 0,
+    voiceRecording: false,
   },
   {
     id: 6,
@@ -201,6 +244,7 @@ export const activities = [
     date: '2025-01-24',
     status: 'completed',
     photos: 5,
+    voiceRecording: true,
   },
 ];
 

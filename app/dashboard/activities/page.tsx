@@ -2,6 +2,7 @@
 
 import { activities, properties } from '@/lib/mock-data';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function ActivitiesPage() {
   const [statusFilter, setStatusFilter] = useState('all');
@@ -17,9 +18,20 @@ export default function ActivitiesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-gray-900">활동 관리 (Farming)</h2>
-        <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-          + 활동 등록
-        </button>
+        <div className="flex gap-2">
+          <Link
+            href="/dashboard/activity-add"
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm flex items-center gap-1"
+          >
+            ➕ 활동 등록
+          </Link>
+          <Link
+            href="/dashboard/calendar"
+            className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 text-sm flex items-center gap-1"
+          >
+            📅 일정 캘린더
+          </Link>
+        </div>
       </div>
 
       {/* Info 메시지 */}
@@ -106,7 +118,7 @@ export default function ActivitiesPage() {
                 활동 내용
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                사진
+                첨부
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                 상태
@@ -146,13 +158,19 @@ export default function ActivitiesPage() {
                   {activity.content}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {activity.photos > 0 ? (
-                    <span className="flex items-center gap-1">
-                      📷 {activity.photos}장
-                    </span>
-                  ) : (
-                    '-'
-                  )}
+                  <div className="flex items-center gap-2">
+                    {activity.photos > 0 && (
+                      <span className="flex items-center gap-1 px-2 py-1 bg-blue-50 rounded text-blue-700">
+                        📷 {activity.photos}
+                      </span>
+                    )}
+                    {activity.voiceRecording && (
+                      <span className="flex items-center gap-1 px-2 py-1 bg-purple-50 rounded text-purple-700">
+                        🎤
+                      </span>
+                    )}
+                    {!activity.photos && !activity.voiceRecording && '-'}
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span

@@ -86,10 +86,8 @@ export default function LoginPage() {
           </div>
           
           <div className="text-sm text-gray-500 space-y-1">
-            <p>테스트 계정:</p>
+            <p> PROTOTYPE 테스트 계정:</p>
             <p>- 관리자: admin@reai.com / admin123</p>
-            <p>- 팀장: leader@reai.com / leader123</p>
-            <p>- 에이전트: agent@reai.com / agent123</p>
           </div>
         </form>
       </div>
