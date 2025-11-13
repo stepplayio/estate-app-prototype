@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAI 시스템 - 웹사이트 메뉴 구조 및 자동화</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        .reveal {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #ffffff;
+        }
+        .reveal h1, .reveal h2, .reveal h3 {
+            color: #2c3e50;
+        }
+        .reveal h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .reveal h2 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+        .reveal h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #27ae60;
+        }
+        .reveal {
+            color: #2c3e50;
+        }
+        .reveal section {
+            text-align: left;
+        }
+        .reveal section h1,
+        .reveal section h2 {
+            text-align: center;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 12px 0;
+        }
+        .feature-card {
+            background: rgba(52, 152, 219, 0.08);
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+        }
+        .feature-card h4 {
+            color: #2980b9;
+            margin: 0 0 6px 0;
+            font-size: 0.85em;
+        }
+        .feature-card ul {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 0.65em;
+            line-height: 1.5;
+            list-style-position: inside;
+        }
+        .auto-level-3 {
+            color: #e74c3c !important;
+            font-weight: bold;
+        }
+        .auto-level-2 {
+            color: #f39c12 !important;
+            font-weight: bold;
+        }
+        .auto-level-1 {
+            color: #95a5a6 !important;
+        }
+        .menu-structure {
+            background: rgba(236, 240, 241, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+            line-height: 1.8;
+            overflow-y: auto;
+            max-height: 500px;
+            border: 1px solid rgba(149, 165, 166, 0.3);
+        }
+        .phase-box {
+            background: rgba(46, 204, 113, 0.08);
+            border: 2px solid #27ae60;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 8px 0;
+        }
+        .phase-box h3 {
+            font-size: 1em !important;
+            margin-bottom: 6px !important;
+        }
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            font-size: 0.75em;
+        }
+        .tech-item {
+            background: rgba(155, 89, 182, 0.08);
+            border-left: 3px solid #8e44ad;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid rgba(155, 89, 182, 0.2);
+        }
+        .tech-item ul {
+            margin: 5px 0 0 0;
+            padding-left: 15px;
+        }
+        .flow-diagram {
+            background: rgba(236, 240, 241, 0.5);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.65em;
+            line-height: 1.5;
+            border: 1px solid rgba(149, 165, 166, 0.3);
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.08), rgba(155, 89, 182, 0.08));
+            border: 2px solid #3498db;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .highlight-box h3 {
+            font-size: 1em !important;
+            margin-bottom: 6px !important;
+        }
+        .highlight-box ul {
+            font-size: 0.7em;
+            line-height: 1.4;
+        }
+        .highlight-box ul ul {
+            font-size: 0.95em;
+            line-height: 1.3;
+        }
+        .stat-number {
+            font-size: 2em;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .small-text {
+            font-size: 0.65em;
+            line-height: 1.3;
+        }
+        .reveal section {
+            overflow-y: auto;
+            max-height: 100%;
+            padding: 10px 20px !important;
+        }
+        .center-text {
+            text-align: center !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- 슬라이드 1: 표지 -->
+            <section>
+                <h1 style="text-align: center;">상업용 부동산 통합 웹 플랫폼</h1>
+                <h3 style="text-align: center;">웹사이트 메뉴 구조 및 자동화 전략</h3>
+                <p style="margin-top: 50px; color: #7f8c8d; text-align: center;">
+                    작성일: 2025.11.12<br>
+                    9단계 프로세스 실무 자동화
+                </p>
+            </section>
+
+            <!-- 슬라이드 2: 목차 -->
+            <section>
+                <h2>목차</h2>
+                <div style="text-align: left; margin: 20px auto; max-width: 700px; font-size: 0.95em; line-height: 1.8;">
+                    <p>✓ 전체 메뉴 구조</p>
+                    <p>✓ 단계별 기능 및 자동화 포인트</p>
+                    <p>✓ 권한별 메뉴 접근</p>
+                    <p>✓ 자동화 흐름</p>
+                    <p>✓ 기술 스택(변동가능)</p>
+                    <p>✓ 개발 우선순위</p>
+                    <p>✓ 예상 화면 수 및 개발 기간</p>
+                </div>
+            </section>
+
+            <!-- 슬라이드 3: 전체 메뉴 구조 -->
+            <section>
+                <h3>전체 메뉴 구조</h3>
+                <div class="highlight-box center-text" style="margin: 30px 0;">
+                    <h3 style="font-size: 1.2em; margin-bottom: 15px;">프로토타입 웹사이트에서 확인</h3>
+                    <p style="font-size: 1.1em; margin-bottom: 10px;">
+                        <a href="https://estate-app-prototype.vercel.app/" target="_blank" style="color: #3498db; text-decoration: underline;">
+                            https://estate-app-prototype.vercel.app/
+                        </a>
+                    </p>
+                    <p style="font-size: 0.85em; color: #7f8c8d; margin-top: 10px;">
+                        로그인: admin@reai.com / admin123
+                    </p>
+                </div>
+                <div style="margin-top: 30px; text-align: center;">
+                    <p style="font-size: 0.9em; color: #7f8c8d; margin-bottom: 15px;">실제 구현된 메뉴 구조</p>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; max-width: 900px; margin: 0 auto;">
+                        <div style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 6px; text-align: left;">
+                            <h4 style="color: #2c3e50; font-size: 0.9em; margin-bottom: 8px;">매물 관리</h4>
+                            <ul style="font-size: 0.65em; line-height: 1.6; padding-left: 20px;">
+                                <li>잠재매물</li>
+                                <li style="padding-left: 15px;">├ 활동 등록</li>
+                                <li style="padding-left: 15px;">├ 활동 관리</li>
+                                <li style="padding-left: 15px;">├ 일정 캘린더</li>
+                                <li>물건 접수</li>
+                                <li>매물 등록</li>
+                                <li>등록 매물 관리</li>
+                            </ul>
+                        </div>
+                        <div style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 6px; text-align: left;">
+                            <h4 style="color: #2c3e50; font-size: 0.9em; margin-bottom: 8px;">영업 관리</h4>
+                            <ul style="font-size: 0.65em; line-height: 1.6; padding-left: 20px;">
+                                <li>결재 관리</li>
+                                <li>마케팅</li>
+                                <li>매수자 관리</li>
+                            </ul>
+                        </div>
+                        <div style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 6px; text-align: left;">
+                            <h4 style="color: #2c3e50; font-size: 0.9em; margin-bottom: 8px;">시스템</h4>
+                            <ul style="font-size: 0.65em; line-height: 1.6; padding-left: 20px;">
+                                <li>통계</li>
+                                <li>관리자</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 4: 1단계 - 잠재매물 -->
+            <section>
+                <h3>1단계: 잠재매물 (Pre-Farming)</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>구현 완료</h4>
+                        <ul>
+                            <li>지도 뷰 / 리스트 뷰 전환</li>
+                            <li>지역별 필터 (강남/서초/송파 등)</li>
+                            <li>단계별 필터 (Pre-Farming/Farming/등록승인)</li>
+                            <li>출처별 필터 (국토부/네이버/수동)</li>
+                            <li>Signal 점수 시각화</li>
+                            <li>수동 입력 / 엑셀 업로드</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>자동화 포인트</h4>
+                        <ul>
+                            <li>국토부 API 자동 수집 (월 1회)</li>
+                            <li>네이버 크롤링 (주 2~3회)</li>
+                            <li>Signal 점수 자동 계산</li>
+                            <li>주거용 자동 필터링</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 5: 2단계 - 활동 관리 -->
+            <section>
+                <h2>2단계: 활동 관리 (Farming)</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>구현 완료</h4>
+                        <ul>
+                            <li>활동 등록 (간편 폼, 모바일 최적화)</li>
+                            <li>활동 관리 (목록, 필터)</li>
+                            <li>일정 캘린더 (권한별)</li>
+                            <li>활동 유형별 필터 (방문/통화/내방)</li>
+                            <li>사진/음성 녹음 표시</li>
+                            <li>활동 통계 (건수, 전환율)</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>자동화 / 구현 예정</h4>
+                        <ul>
+                            <li>일정 알림 자동 발송 (D-1, 당일)</li>
+                            <li>사진 업로드</li>
+                            <li>음성 녹음 (STT + GPT 요약)</li>
+                            <li>조사표 작성 (엑셀 기반)</li>
+                            <li>현재 위치 자동 기록</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 6: 3단계 - 물건 접수 -->
+            <section>
+                <h2>3단계: 물건 접수 (Sales Offering)</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>구현 완료</h4>
+                        <ul>
+                            <li>접수 목록 (카드 뷰)</li>
+                            <li>매도인 정보 관리</li>
+                            <li>서류 체크리스트 (진행률 표시)</li>
+                            <li>상태별 필터 (서류 대기/접수 완료)</li>
+                            <li>4단계 전환 버튼</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>자동화 / 구현 예정</h4>
+                        <ul>
+                            <li>2단계 데이터 자동 연결</li>
+                            <li>서류 업로드 (R2)</li>
+                            <li>필수 서류 자동 체크</li>
+                            <li>OCR 자동 분석 (Phase 2)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 7: 4단계 - 매물 등록 -->
+            <section>
+                <h2>4단계: 매물 등록 (Register) ⭐ 중요</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>구현 완료</h4>
+                        <ul>
+                            <li>결재 워크플로우 시각화 (에이전트→팀장→경영진)</li>
+                            <li>품질 점수 표시 (70점 기준)</li>
+                            <li>승인/보완요청/반려 버튼 (권한별)</li>
+                            <li>결재 대기/승인 완료 필터</li>
+                            <li>결재 관리 페이지 (팀장/관리자 전용)</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>자동화</h4>
+                        <ul>
+                            <li>3단계 데이터 자동 연결</li>
+                            <li>품질 점수 자동 계산</li>
+                            <li>결재 알림 자동 발송</li>
+                            <li>5단계 자동 전환 (승인 완료 시)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 8: 5단계 - 마케팅 -->
+            <section>
+                <h2>5단계: 마케팅 (Marketing) ⭐ 중요</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>구현 완료</h4>
+                        <ul>
+                            <li>IM 편집 모달 (실제 포맷 반영)</li>
+                            <li>사용자 입력: 사진 2장, 입지 특성</li>
+                            <li>자동 생성: 건축물대장, 수익률, 예상 월매출</li>
+                            <li>체크리스트 진행률 표시</li>
+                            <li>VIP 발송 현황 표시</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>자동화 / 구현 예정</h4>
+                        <ul>
+                            <li>4단계 데이터 자동 연결</li>
+                            <li>수익률 자동 계산 (공식 적용)</li>
+                            <li>PDF 자동 생성</li>
+                            <li>메일 자동 발송 (VIP)</li>
+                            <li>체크리스트 자동 생성</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 9: 6단계 - 매수자 관리 -->
+            <section>
+                <h2>6단계: 매수자 관리 (Buyer Contact)</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>구현 완료</h4>
+                        <ul>
+                            <li>잠재/확정/영업 중 상태 구분</li>
+                            <li>매수자 목록 (2단 레이아웃)</li>
+                            <li>매칭 결과 표시 (점수순)</li>
+                            <li>조건 확정하기 (잠재→확정 전환)</li>
+                            <li>영업 시작 버튼 (7단계 전환)</li>
+                            <li>등록 매물 관리 (매물별 매칭 현황)</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>자동화</h4>
+                        <ul>
+                            <li>매칭 로직 자동 실행</li>
+                            <li>점수 자동 계산 및 정렬</li>
+                            <li>7단계 자동 연결</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 10: 7~9단계 (프로토타입 제외) -->
+            <section>
+                <h2>7~9단계: 영업 / 계약 / 사후관리</h2>
+                <div class="highlight-box">
+                    <h3 class="center-text">Phase 2 또는 추후 개발</h3>
+                    <p class="small-text center-text" style="margin-top: 10px;">
+                        현재 프로토타입은 1~6단계 중심으로 구현<br>
+                        7단계(영업), 8단계(계약), 9단계(사후관리)는 개발 계약 후 진행
+                    </p>
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>7단계: 영업 관리</h4>
+                        <ul class="small-text">
+                            <li>영업 파이프라인 (칸반 뷰)</li>
+                            <li>영업 활동 기록</li>
+                            <li>피드백 관리</li>
+                            <li>일정 알림</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>8단계: 계약 관리</h4>
+                        <ul class="small-text">
+                            <li>계약서 작성</li>
+                            <li>전자서명 (Phase 2)</li>
+                            <li>RTMS 신고 (Phase 2)</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>9단계: 사후 관리</h4>
+                        <ul class="small-text">
+                            <li>사후관리 일정</li>
+                            <li>만족도 조사</li>
+                            <li>고객 리포트 (Phase 2)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 11: 핵심 구현 사항 -->
+            <section>
+                <h2>프로토타입 핵심 구현 사항</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>대시보드</h4>
+                        <ul>
+                            <li>9단계 프로세스 현황 (건수)</li>
+                            <li>데이터 최신 업데이트 (국토부/네이버)</li>
+                            <li>알림 드롭다운 (헤더)</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>관리자 페이지</h4>
+                        <ul>
+                            <li>배치 Job 관리 (실행 이력)</li>
+                            <li>스케줄/이벤트 Job 구분</li>
+                            <li>수동 실행 버튼</li>
+                            <li>성공률 통계</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>권한별 메뉴</h4>
+                        <ul>
+                            <li>에이전트: 활동 중심</li>
+                            <li>팀장: 팀 전체 + 결재</li>
+                            <li>관리자: 전체 + 시스템</li>
+                            <li>사이드바 그룹화 (서브메뉴)</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>추가 기능</h4>
+                        <ul>
+                            <li>통계 페이지 (구현 예정 카드)</li>
+                            <li>일정 캘린더 (플레이스홀더)</li>
+                            <li>등록 매물 관리 (매칭 현황)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 12: 메뉴 구조 (실제 구현) -->
+            <section>
+                <h2>메뉴 구조 (실제 구현)</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>매물 관리</h4>
+                        <ul class="small-text">
+                            <li>잠재매물</li>
+                            <li>├ 활동 등록 (서브)</li>
+                            <li>├ 활동 관리 (서브)</li>
+                            <li>├ 일정 캘린더 (서브)</li>
+                            <li>물건 접수</li>
+                            <li>매물 등록</li>
+                            <li>등록 매물 관리</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>영업 관리</h4>
+                        <ul class="small-text">
+                            <li>결재 관리 (팀장/관리자)</li>
+                            <li>마케팅 (IM 편집)</li>
+                            <li>매수자 관리 (잠재/확정)</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>시스템</h4>
+                        <ul class="small-text">
+                            <li>통계 (구현 예정)</li>
+                            <li>관리자 (배치 Job)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 13: 기술 스택 & 인프라 -->
+            <section>
+                <h2>기술 스택 & 인프라</h2>
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <strong>Frontend</strong>
+                        <ul class="small-text">
+                            <li>Next.js 14 + TypeScript</li>
+                            <li>Tailwind CSS</li>
+                            <li>Zustand (상태 관리)</li>
+                        </ul>
+                    </div>
+                    <div class="tech-item">
+                        <strong>Backend (예정)</strong>
+                        <ul class="small-text">
+                            <li>NestJS + TypeScript</li>
+                            <li>PostgreSQL (Supabase)</li>
+                            <li>Bull Queue (배치)</li>
+                        </ul>
+                    </div>
+                    <div class="tech-item">
+                        <strong>인프라</strong>
+                        <ul class="small-text">
+                            <li>Vercel Pro: $20/월</li>
+                            <li>Supabase Pro: $25/월</li>
+                            <li>Railway: $10/월</li>
+                            <li>R2 + SMS: $7/월</li>
+                            <li><strong>총: $62/월 (약 8만원)</strong></li>
+                        </ul>
+                    </div>
+                    <div class="tech-item">
+                        <strong>외부 API</strong>
+                        <ul class="small-text">
+                            <li>국토부 공공 API</li>
+                            <li>Kakao Map API</li>
+                            <li>Whisper (STT)</li>
+                            <li>Aligo SMS</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            width: 1400,
+            height: 800,
+            margin: 0.05,
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: true
+        });
+    </script>
+</body>
+</html>
+
